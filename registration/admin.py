@@ -31,10 +31,7 @@ class RegistrationAdmin(admin.ModelAdmin):
         activated.
         
         """
-        if Site._meta.installed:
-            site = Site.objects.get_current()
-        else:
-            site = RequestSite(request)
+        site = Site.objects.get_current()
 
         for profile in queryset:
             if not profile.activation_key_expired():
