@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.sites.models import RequestSite
 from django.contrib.sites.models import Site
 
 from registration import signals
@@ -82,11 +81,8 @@ class RegistrationView(BaseRegistrationView):
         class of this backend as the sender.
 
         """
-        if Site._meta.installed:
-            site = Site.objects.get_current()
-        else:
-            site = RequestSite(request)
-        
+        site = Site.objects.get_current()
+
         if hasattr(form, 'save'):
             new_user_instance = form.save()
         else:
